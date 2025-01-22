@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pomm/models/admin.dart';
 import 'package:pomm/models/clerk.dart';
-import 'package:pomm/models/customer.dart';
 import 'package:pomm/shared/myserverconfig.dart';
 import 'package:pomm/views/admin/admindashboard.dart';
 import 'package:pomm/views/clerk/clerkdashboard.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:pomm/views/customer/profilepage.dart';
 
 class LoginClerkAdminPage extends StatefulWidget {
   const LoginClerkAdminPage({super.key});
@@ -130,6 +128,7 @@ class _LoginPageState extends State<LoginClerkAdminPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const SizedBox(height: 120),
+                  // Replace "Welcome back!" text with an image
                   Image.asset(
                     'assets/images/loginicon_ca.png', // Change to the correct image path
                     height: 200, // Adjust the height as needed
@@ -175,7 +174,7 @@ class _LoginPageState extends State<LoginClerkAdminPage> {
                             "Login",
                             style: GoogleFonts.poppins(
                               fontSize: 15,
-                              color: const Color.fromARGB(227, 20, 40, 28),
+                              color: Colors.black,
                             ),
                           ),
                         ),
@@ -195,26 +194,65 @@ class _LoginPageState extends State<LoginClerkAdminPage> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+
     String email = userIDController.text;
     String pass = passwordController.text;
+    String loginUrl;
 
-    http.post(Uri.parse("${MyServerConfig.server}/pomm/php/login_customer.php"),
+    // Determine the URL based on user role (admin or clerk)
+    if (email == "adminpomm@gmail.com") {
+      loginUrl = "${MyServerConfig.server}/pomm/php/login_admin.php";
+    } else if (email == "clerkpomm@gmail.com") {
+      loginUrl =
+          "${MyServerConfig.server}/pomm/php/login_clerk.php"; // Clerk login URL
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Invalid User ID"),
+        backgroundColor: Colors.red,
+      ));
+      return;
+    }
+
+    // Send the POST request to the selected URL
+    http.post(Uri.parse(loginUrl),
         body: {"email": email, "password": pass}).then((response) {
       print(response.body);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         if (data['status'] == "success") {
-          Customer customer = Customer.fromJson(data['data']);
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("You have successfully logged in"),
-            backgroundColor: Colors.green,
-          ));
-          Navigator.push(
+          if (email == "adminpomm@gmail.com") {
+            Admin admin = Admin.fromJson(data['data']);
+
+            // Navigate to Admin Dashboard
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("You have successfully logged in as admin"),
+              backgroundColor: Colors.green,
+            ));
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (content) => ProfilePage(
-                        customerdata: customer,
-                      )));
+                builder: (content) => AdminDashboardPage(
+                  admindata: admin,
+                ),
+              ),
+            );
+          } else if (email == "clerkpomm@gmail.com") {
+            Clerk clerk = Clerk.fromJson(data['data']);
+
+            // Navigate to Clerk Dashboard
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("You have successfully logged in as clerk"),
+              backgroundColor: Colors.green,
+            ));
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (content) => ClerkDashboardPage(
+                  clerkdata: clerk,
+                ),
+              ),
+            );
+          }
         } else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Login Failed. Please create a new account"),

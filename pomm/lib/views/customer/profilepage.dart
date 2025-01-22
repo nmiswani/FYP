@@ -39,23 +39,21 @@ class _ProfilePageState extends State<ProfilePage> {
     screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: const Color.fromARGB(248, 214, 227, 216),
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white),
-        title: const Text(
+        backgroundColor: const Color.fromARGB(255, 55, 97, 70),
+        iconTheme: const IconThemeData(color: Color.fromARGB(255, 55, 97, 70)),
+        title: Text(
           "My Profile",
-          style: TextStyle(
-            color: Colors.white,
-          ),
+          style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
         ),
-        elevation: 0,
-        backgroundColor: Colors.deepOrange,
-        flexibleSpace: Container(),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
-              const SizedBox(height: 40),
+              const SizedBox(height: 60),
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -68,11 +66,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     child: Container(
-                      margin: const EdgeInsets.all(4),
+                      margin: const EdgeInsets.all(5),
                       width: screenWidth * 0.4,
                       child: CircleAvatar(
-                        radius: 75,
-                        backgroundColor: Colors.white,
+                        radius: 62,
+                        backgroundColor:
+                            const Color.fromARGB(255, 255, 255, 255),
                         backgroundImage: CachedNetworkImageProvider(
                           "${MyServerConfig.server}/pomm/assets/profileimages/${widget.customerdata.customerid}.jpg?v=$val",
                         ),
@@ -99,9 +98,10 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               const SizedBox(height: 25),
               Card(
-                color: const Color.fromARGB(255, 255, 234, 217),
-                margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 4),
-                elevation: 1.5,
+                color: Colors.white,
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero),
                 child: ListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                   leading: Container(
@@ -112,16 +112,17 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Colors.black,
                     ),
                   ),
-                  title: const Text(
+                  title: Text(
                     "Name",
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 14,
-                      color: Color.fromARGB(255, 106, 106, 106),
+                      color: const Color.fromARGB(255, 106, 106, 106),
                     ),
                   ),
                   subtitle: Text(
                     widget.customerdata.customername.toString(),
-                    style: const TextStyle(fontSize: 15, color: Colors.black),
+                    style:
+                        GoogleFonts.poppins(fontSize: 14, color: Colors.black),
                   ),
                   trailing: IconButton(
                     icon: const Icon(
@@ -135,9 +136,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Card(
-                color: const Color.fromARGB(255, 255, 234, 217),
-                margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 4),
-                elevation: 1.5,
+                color: Colors.white,
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero),
                 child: ListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                   leading: Container(
@@ -148,16 +150,17 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Colors.black,
                     ),
                   ),
-                  title: const Text(
+                  title: Text(
                     "Email",
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 14,
-                      color: Color.fromARGB(255, 106, 106, 106),
+                      color: const Color.fromARGB(255, 106, 106, 106),
                     ),
                   ),
                   subtitle: Text(
                     widget.customerdata.customeremail.toString(),
-                    style: const TextStyle(fontSize: 15, color: Colors.black),
+                    style:
+                        GoogleFonts.poppins(fontSize: 14, color: Colors.black),
                   ),
                   trailing: IconButton(
                     icon: const Icon(
@@ -171,9 +174,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Card(
-                color: const Color.fromARGB(255, 255, 234, 217),
-                margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 4),
-                elevation: 1.5,
+                color: Colors.white,
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero),
                 child: ListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                   leading: Container(
@@ -184,16 +188,17 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Colors.black,
                     ),
                   ),
-                  title: const Text(
+                  title: Text(
                     "Phone Number",
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 14,
-                      color: Color.fromARGB(255, 106, 106, 106),
+                      color: const Color.fromARGB(255, 106, 106, 106),
                     ),
                   ),
                   subtitle: Text(
                     widget.customerdata.customerphone.toString(),
-                    style: const TextStyle(fontSize: 15, color: Colors.black),
+                    style:
+                        GoogleFonts.poppins(fontSize: 14, color: Colors.black),
                   ),
                   trailing: IconButton(
                     icon: const Icon(
@@ -207,9 +212,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Card(
-                color: const Color.fromARGB(255, 255, 234, 217),
-                margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 4),
-                elevation: 1.5,
+                color: Colors.white,
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero),
                 child: ListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                   leading: Container(
@@ -220,16 +226,17 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Colors.black,
                     ),
                   ),
-                  title: const Text(
+                  title: Text(
                     "Password",
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 14,
-                      color: Color.fromARGB(255, 106, 106, 106),
+                      color: const Color.fromARGB(255, 106, 106, 106),
                     ),
                   ),
-                  subtitle: const Text(
+                  subtitle: Text(
                     "******",
-                    style: TextStyle(fontSize: 15, color: Colors.black),
+                    style:
+                        GoogleFonts.poppins(fontSize: 14, color: Colors.black),
                   ),
                   trailing: IconButton(
                     icon: const Icon(
@@ -242,7 +249,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               Center(
                 child: Container(
                   width: MediaQuery.of(context).size.width / 3,
@@ -259,18 +266,18 @@ class _ProfilePageState extends State<ProfilePage> {
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(double.infinity, 50),
-                      backgroundColor: Colors.deepOrange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
+                      backgroundColor: const Color.fromARGB(255, 55, 97, 70),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
                       ),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           "Logout",
-                          style: TextStyle(
-                            fontSize: 16,
+                          style: GoogleFonts.poppins(
+                            fontSize: 15,
                             color: Colors.white,
                           ),
                         ),

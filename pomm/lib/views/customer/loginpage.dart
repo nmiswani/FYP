@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pomm/models/customer.dart';
 import 'package:pomm/shared/myserverconfig.dart';
-import 'package:pomm/views/customer/profilepage.dart';
+import 'package:pomm/views/customer/customerdashboard.dart';
+import 'package:pomm/views/customer/registerpage.dart';
 import 'package:pomm/views/startpage.dart';
 
 import 'dart:convert';
@@ -36,7 +37,7 @@ class _LoginPageState extends State<LoginCustomerPage> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            const StartPage(), // Replace with actual register page
+            const RegisterPage(), // Replace with actual register page
       ),
     );
   }
@@ -207,7 +208,7 @@ class _LoginPageState extends State<LoginCustomerPage> {
                             "Login",
                             style: GoogleFonts.poppins(
                               fontSize: 15,
-                              color: const Color.fromARGB(227, 20, 40, 28),
+                              color: Colors.black,
                             ),
                           ),
                         ),
@@ -268,7 +269,7 @@ class _LoginPageState extends State<LoginCustomerPage> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (content) => ProfilePage(
+                  builder: (content) => CustomerDashboardPage(
                         customerdata: customer,
                       )));
         } else {

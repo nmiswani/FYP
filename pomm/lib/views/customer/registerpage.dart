@@ -107,7 +107,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             "Register",
                             style: GoogleFonts.poppins(
                               fontSize: 15,
-                              color: const Color.fromARGB(227, 20, 40, 28),
+                              color: Colors.black,
                             ),
                           ),
                         ),

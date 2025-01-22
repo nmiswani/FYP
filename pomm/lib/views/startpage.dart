@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pomm/views/customer/mainpage.dart';
 import 'package:pomm/views/loginpage_clerkadmin.dart';
-import 'package:pomm/views/customer/loginpage.dart'; // Import the LoginPage (replace with your actual file)
+import 'package:pomm/views/customer/loginpage.dart';
 import 'package:pomm/views/customer/registerpage.dart';
-import 'package:pomm/views/customer/profilepage.dart'; // Import the RegisterPage (replace with your actual file)
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});
@@ -40,7 +38,7 @@ class StartPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              const ProductPage(), // Change to your actual RegisterPage class
+                              const LoginCustomerPage(), // Change to your actual RegisterPage class
                         ),
                       );
                     },
@@ -56,7 +54,7 @@ class StartPage extends StatelessWidget {
                         "Login",
                         style: GoogleFonts.poppins(
                           fontSize: 15,
-                          color: const Color.fromARGB(227, 20, 40, 28),
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -91,7 +89,7 @@ class StartPage extends StatelessWidget {
                         "Register",
                         style: GoogleFonts.poppins(
                           fontSize: 15,
-                          color: const Color.fromARGB(227, 20, 40, 28),
+                          color: Colors.black,
                         ),
                       ),
                     ),
