@@ -84,7 +84,7 @@ class _CartPageState extends State<CartPage> {
                           leading: ClipRRect(
                             borderRadius: BorderRadius.circular(0),
                             child: Image.network(
-                              "${MyServerConfig.server}/bookbytes/assets/books/${cartItem.productId}.png",
+                              "${MyServerConfig.server}/pomm/assets/products/${cartItem.productId}.png",
                               width: 45,
                               height: 45,
                               fit: BoxFit.cover,
