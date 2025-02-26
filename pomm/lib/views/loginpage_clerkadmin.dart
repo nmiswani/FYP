@@ -225,7 +225,7 @@ class _LoginPageState extends State<LoginClerkAdminPage> {
 
             // Navigate to Admin Dashboard
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("You have successfully logged in as admin"),
+              content: Text("You have successfully logged in"),
               backgroundColor: Colors.green,
             ));
             Navigator.pushReplacement(
@@ -241,7 +241,7 @@ class _LoginPageState extends State<LoginClerkAdminPage> {
 
             // Navigate to Clerk Dashboard
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("You have successfully logged in as clerk"),
+              content: Text("You have successfully logged in"),
               backgroundColor: Colors.green,
             ));
             Navigator.pushReplacement(

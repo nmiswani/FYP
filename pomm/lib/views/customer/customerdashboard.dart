@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'dart:convert';
 import 'dart:developer';
@@ -45,13 +46,13 @@ class _CustomerDashboardPageState extends State<CustomerDashboardPage> {
     }
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white),
-        title: const Text(
+        iconTheme: const IconThemeData(color: Color.fromARGB(255, 55, 97, 70)),
+        title: Text(
           "Product",
-          style: TextStyle(
-            color: Colors.white,
-          ),
+          style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
         ),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 55, 97, 70),
         actions: [
           IconButton(
             onPressed: showSearchDialog,
@@ -66,11 +67,10 @@ class _CustomerDashboardPageState extends State<CustomerDashboardPage> {
                 ),
               );
             },
-            icon: const Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart, color: Colors.white),
           ),
         ],
         elevation: 0.0,
-        backgroundColor: Colors.deepOrange,
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -91,8 +91,9 @@ class _CustomerDashboardPageState extends State<CustomerDashboardPage> {
                         return Card(
                           elevation: 4,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
+                            borderRadius: BorderRadius.circular(0),
                           ),
+                          color: const Color.fromARGB(248, 214, 227, 216),
                           child: InkWell(
                             onTap: () async {
                               Product product =
@@ -115,7 +116,7 @@ class _CustomerDashboardPageState extends State<CustomerDashboardPage> {
                                   flex: 3,
                                   child: ClipRRect(
                                     child: Image.network(
-                                      "${MyServerConfig.server}/pomm/assets/products/${productList[index].productId}.png",
+                                      "${MyServerConfig.server}/pomm/assets/products/${productList[index].productId}.jpg",
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -123,7 +124,7 @@ class _CustomerDashboardPageState extends State<CustomerDashboardPage> {
                                 Expanded(
                                   flex: 2,
                                   child: Padding(
-                                    padding: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(8),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
@@ -133,22 +134,22 @@ class _CustomerDashboardPageState extends State<CustomerDashboardPage> {
                                           truncateString(productList[index]
                                               .productTitle
                                               .toString()),
-                                          style: const TextStyle(
+                                          style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 14,
+                                            fontSize: 12,
                                           ),
                                         ),
                                         Text(
                                           "RM${productList[index].productPrice}",
-                                          style: const TextStyle(
-                                            fontSize: 14,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 12,
                                             color: Colors.black,
                                           ),
                                         ),
                                         Text(
                                           "${productList[index].productQty} available",
-                                          style: const TextStyle(
-                                            fontSize: 14,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 12,
                                             color: Colors.red,
                                           ),
                                         ),
@@ -171,9 +172,9 @@ class _CustomerDashboardPageState extends State<CustomerDashboardPage> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         if ((curpage - 1) == index) {
-                          color = Colors.deepOrange;
-                        } else {
                           color = Colors.black;
+                        } else {
+                          color = Colors.grey;
                         }
                         return TextButton(
                           onPressed: () {
@@ -225,7 +226,7 @@ class _CustomerDashboardPageState extends State<CustomerDashboardPage> {
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text("Product Not Found"),
+              content: Text("Product not found"),
               backgroundColor: Colors.red,
             ),
           );
@@ -244,9 +245,9 @@ class _CustomerDashboardPageState extends State<CustomerDashboardPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text(
-            "Search title",
+            "Search product",
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -263,7 +264,7 @@ class _CustomerDashboardPageState extends State<CustomerDashboardPage> {
                 child: TextField(
                   controller: searchController,
                   decoration: const InputDecoration(
-                    hintText: "Enter product title",
+                    hintText: "Enter product name",
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.search, color: Colors.black),
                   ),
@@ -276,17 +277,17 @@ class _CustomerDashboardPageState extends State<CustomerDashboardPage> {
                   loadProducts(searchController.text);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepOrange,
+                  backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(0),
                   ),
                 ),
                 child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   child: Text(
                     "Search",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       color: Colors.white,
                     ),
                   ),

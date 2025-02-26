@@ -39,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
     screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(248, 214, 227, 216),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 55, 97, 70),
         iconTheme: const IconThemeData(color: Color.fromARGB(255, 55, 97, 70)),
@@ -98,7 +98,8 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               const SizedBox(height: 25),
               Card(
-                color: Colors.white,
+                elevation: 2,
+                color: const Color.fromARGB(248, 214, 227, 216),
                 margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero),
@@ -136,7 +137,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Card(
-                color: Colors.white,
+                elevation: 2,
+                color: const Color.fromARGB(248, 214, 227, 216),
                 margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero),
@@ -174,7 +176,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Card(
-                color: Colors.white,
+                elevation: 2,
+                color: const Color.fromARGB(248, 214, 227, 216),
                 margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero),
@@ -212,7 +215,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Card(
-                color: Colors.white,
+                elevation: 2,
+                color: const Color.fromARGB(248, 214, 227, 216),
                 margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero),

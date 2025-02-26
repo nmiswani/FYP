@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pomm/models/customer.dart';
 import 'package:pomm/shared/myserverconfig.dart';
 import 'package:pomm/views/customer/customerdashboard.dart';
+import 'package:pomm/views/customer/profilepage.dart';
 import 'package:pomm/views/customer/registerpage.dart';
 import 'package:pomm/views/startpage.dart';
 
@@ -44,21 +45,39 @@ class _LoginPageState extends State<LoginCustomerPage> {
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
+      // Displaying a SnackBar
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("These field are required"),
+            backgroundColor: Colors.red,
+          ),
+        );
+      });
       return 'Enter email';
     }
     if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
         .hasMatch(value)) {
-      return 'Enter valid email';
+      return 'Enter valid email (e.g., example@gmail.com)';
     }
     return null;
   }
 
   String? _validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Enter password';
+      return 'Enter registered password';
     } else {
       if (value.length < 6) {
-        return 'Enter valid password';
+        // EDIT
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Invalid password"),
+              backgroundColor: Colors.red,
+            ),
+          );
+        });
+        return 'Enter registered password';
       }
     }
     return null;
@@ -172,7 +191,7 @@ class _LoginPageState extends State<LoginCustomerPage> {
                     },
                     validator: _validatePassword,
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
@@ -188,7 +207,7 @@ class _LoginPageState extends State<LoginCustomerPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 70),
+                  const SizedBox(height: 75),
                   Center(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width / 2.5,

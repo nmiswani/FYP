@@ -20,13 +20,13 @@ class Cart {
 
   Cart.fromJson(Map<String, dynamic> json) {
     cartId = json['cart_id'];
-    productId = json['book_id'];
+    productId = json['product_id'];
     cartQty = json['cart_qty'];
     cartStatus = json['cart_status'];
     cartDate = json['cart_date'];
-    productTitle = json['book_title'];
-    productPrice = json['book_price'];
-    productQty = json['book_qty'];
+    productTitle = json['product_title'];
+    productPrice = json['product_price'];
+    productQty = json['product_qty'];
   }
 
   Map<String, dynamic> toJson() {

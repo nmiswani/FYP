@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart'; // Import GoogleFonts
 import 'package:http/http.dart' as http;
 import 'package:pomm/models/customer.dart';
 import 'package:pomm/models/product.dart';
 import 'package:pomm/shared/myserverconfig.dart';
+import 'package:pomm/views/customer/cartpage.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   final Customer customerdata;
@@ -29,30 +31,32 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       appBar: AppBar(
         title: Text(
           widget.product.productTitle.toString(),
-          style: const TextStyle(
+          style: GoogleFonts.poppins(
+            fontSize: 18,
             color: Colors.white,
           ),
         ),
-        elevation: 0.0,
-        backgroundColor: Colors.deepOrange,
         iconTheme: const IconThemeData(color: Colors.white),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 55, 97, 70),
+        elevation: 0.0,
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Book Image
+            // Product Image
             SizedBox(
-              height: screenHeight * 0.38,
+              height: screenHeight * 0.35,
               width: screenWidth,
               child: ClipRRect(
                 child: Image.network(
-                  "${MyServerConfig.server}/pomm/assets/products/${widget.product.productId}.png",
+                  "${MyServerConfig.server}/pomm/assets/products/${widget.product.productId}.jpg",
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            // Book Details Table
+            // Product Details Table
             Padding(
               padding: EdgeInsets.all(screenWidth * 0.03), // Adjusted padding
               child: Table(
@@ -65,8 +69,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   1: FlexColumnWidth(3.5),
                 },
                 children: [
-                  buildTableRow(
-                      "Title", widget.product.productTitle.toString()),
+                  buildTableRow("Name", widget.product.productTitle.toString()),
                   buildTableRow(
                       "Description", widget.product.productDesc.toString()),
                   buildTableRow("Price", "RM${widget.product.productPrice}"),
@@ -80,17 +83,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             // Add to Cart Button
             Center(
               child: Container(
-                width: MediaQuery.of(context).size.width / 2.5,
-                margin: const EdgeInsets.only(top: 8), // Add margin for spacing
+                width: MediaQuery.of(context).size.width / 2,
+                margin:
+                    const EdgeInsets.only(top: 80), // Add margin for spacing
                 child: ElevatedButton(
                   onPressed: () {
                     insertCartDialog();
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 50),
-                    backgroundColor: Colors.deepOrange,
+                    backgroundColor: const Color.fromARGB(255, 55, 97, 70),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(0),
                     ),
                   ),
                   child: Row(
@@ -104,8 +108,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       SizedBox(width: screenWidth * 0.02), // Adjusted spacing
                       Text(
                         "Add to Cart",
-                        style: TextStyle(
-                          fontSize: screenWidth * 0.04, // Adjusted font size
+                        style: GoogleFonts.poppins(
+                          fontSize: 15, // Adjusted font size
                           color: Colors.white,
                         ),
                       ),
@@ -128,9 +132,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             padding: EdgeInsets.all(screenWidth * 0.02), // Adjusted padding
             child: Text(
               label,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
+              style: GoogleFonts.poppins(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
@@ -140,8 +144,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             padding: EdgeInsets.all(screenWidth * 0.02), // Adjusted padding
             child: Text(
               value,
-              style: const TextStyle(
-                fontSize: 15,
+              style: GoogleFonts.poppins(
+                fontSize: 13,
               ),
             ),
           ),
@@ -180,7 +184,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   insertCart();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text("Book out of stock"),
+                    content: Text(
+                      "Product out of stock",
+                    ),
                     backgroundColor: Colors.red,
                   ));
                 }
@@ -189,7 +195,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             TextButton(
               child: const Text(
                 "No",
-                style: TextStyle(),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -213,12 +218,22 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         var data = jsonDecode(response.body);
         if (data['status'] == "success") {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Added to cart successfully"),
+            content: Text(
+              "Added to cart successfully",
+            ),
             backgroundColor: Colors.green,
           ));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (content) => CartPage(
+                        customer: widget.customerdata,
+                      )));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Failed to add to cart"),
+            content: Text(
+              "Failed to add to cart",
+            ),
             backgroundColor: Colors.red,
           ));
         }

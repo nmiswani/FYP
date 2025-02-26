@@ -242,6 +242,15 @@ class _RegisterPageState extends State<RegisterPage> {
     }
     if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
         .hasMatch(value)) {
+      // EDIT
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Invalid email format"),
+            backgroundColor: Colors.red,
+          ),
+        );
+      });
       return 'Enter valid email (e.g. abu@gmail.com)';
     }
     return null;
@@ -249,6 +258,15 @@ class _RegisterPageState extends State<RegisterPage> {
 
   String? _validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
+      // EDIT
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("These field are required"),
+            backgroundColor: Colors.red,
+          ),
+        );
+      });
       return 'Enter phone number';
     }
     if (!RegExp(r'^[0-9]+$').hasMatch(value)) {

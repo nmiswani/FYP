@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
 import 'dart:convert';
@@ -6,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:pomm/models/cart.dart';
 import 'package:pomm/models/customer.dart';
 import 'package:pomm/shared/myserverconfig.dart';
-import 'package:pomm/views/customer/billpage.dart';
+import 'package:pomm/views/customer/checkoutpage.dart';
 
 class CartPage extends StatefulWidget {
   final Customer customer;
@@ -33,21 +34,20 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
-        title: const Row(
-          children: [
-            Text(
-              "My Cart",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ],
+        title: Text(
+          "My Cart",
+          style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
         ),
-        elevation: 0.0,
-        backgroundColor: Colors.deepOrange,
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 55, 97, 70),
       ),
       body: cartList.isEmpty
-          ? const Center(child: Text("Your cart is empty"))
+          ? Center(
+              child: Text(
+                "Loading...",
+                style: GoogleFonts.poppins(fontSize: 16),
+              ),
+            )
           : Column(
               children: [
                 Expanded(
@@ -57,10 +57,10 @@ class _CartPageState extends State<CartPage> {
                       final cartItem = cartList[index];
 
                       return Container(
-                        margin: const EdgeInsets.all(4),
+                        margin: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: Colors.blue[100],
-                          borderRadius: BorderRadius.circular(5),
+                          color: const Color.fromARGB(248, 214, 227, 216),
+                          borderRadius: BorderRadius.zero,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.withOpacity(0.5),
@@ -74,17 +74,17 @@ class _CartPageState extends State<CartPage> {
                           contentPadding: const EdgeInsets.all(8),
                           title: Text(
                             cartItem.productTitle.toString(),
-                            style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
+                            style: GoogleFonts.poppins(
+                                fontSize: 12, fontWeight: FontWeight.w600),
                           ),
                           subtitle: Text(
                             "RM${cartItem.productPrice.toString()}",
-                            style: const TextStyle(fontSize: 15),
+                            style: GoogleFonts.poppins(fontSize: 13),
                           ),
                           leading: ClipRRect(
                             borderRadius: BorderRadius.circular(0),
                             child: Image.network(
-                              "${MyServerConfig.server}/pomm/assets/products/${cartItem.productId}.png",
+                              "${MyServerConfig.server}/pomm/assets/products/${cartItem.productId}.jpg",
                               width: 45,
                               height: 45,
                               fit: BoxFit.cover,
@@ -104,8 +104,8 @@ class _CartPageState extends State<CartPage> {
                               ),
                               Text(
                                 cartItem.cartQty.toString(),
-                                style: const TextStyle(
-                                  fontSize: 16,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
                                 ),
                               ),
                               IconButton(
@@ -144,94 +144,41 @@ class _CartPageState extends State<CartPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            "Subtotal",
-                            style: TextStyle(fontSize: 16, color: Colors.white),
-                          ),
                           Text(
-                            "RM${calculateSubtotal().toStringAsFixed(2)}",
-                            style: const TextStyle(
-                                fontSize: 16, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Delivery Charge",
-                            style: TextStyle(fontSize: 16, color: Colors.white),
-                          ),
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  _showDeliveryInfoDialog();
-                                },
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Icons.info_outline,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                "RM${(calculateTotal() - calculateSubtotal()).toStringAsFixed(2)}",
-                                style: const TextStyle(
-                                    fontSize: 16, color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Total RM${total.toStringAsFixed(2)}",
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                            "Total RM${calculateSubtotal().toStringAsFixed(2)}",
+                            style: GoogleFonts.poppins(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
                               color: Colors.white,
                             ),
                           ),
                           SizedBox(
-                            width: 120,
+                            width: 150,
                             child: ElevatedButton(
                               onPressed: () async {
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (content) => const BillPage(),
+                                    builder: (content) => CheckoutPage(
+                                      customerdata: widget.customer,
+                                    ),
                                   ),
                                 );
                                 loadUserCart();
                               },
                               style: ElevatedButton.styleFrom(
-                                foregroundColor: Colors.deepOrange,
-                                backgroundColor: Colors.transparent,
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 9),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                elevation: 5,
-                                shadowColor: Colors.black,
-                                textStyle: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                minimumSize: Size.zero,
-                                side: const BorderSide(
-                                  color: Colors.deepOrange,
-                                  width: 2,
+                                minimumSize: const Size(double.infinity, 50),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 55, 97, 70),
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.zero,
                                 ),
                               ),
-                              child: const Text(
+                              child: Text(
                                 "Checkout",
-                                style: TextStyle(
+                                style: GoogleFonts.poppins(
                                   fontSize: 15,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
@@ -264,7 +211,7 @@ class _CartPageState extends State<CartPage> {
             total +=
                 double.parse(v['product_price']) * int.parse(v['cart_qty']);
           });
-          total = calculateTotal();
+
           setState(() {});
         } else {
           Navigator.of(context).pop();
@@ -317,7 +264,6 @@ class _CartPageState extends State<CartPage> {
   updateQuantity(Cart cartItem, int newQuantity) async {
     setState(() {
       cartItem.cartQty = newQuantity.toString();
-      total = calculateTotal();
     });
 
     await updateCartQuantity(cartItem.cartId!, cartItem.cartQty!);
@@ -351,7 +297,6 @@ class _CartPageState extends State<CartPage> {
       if (response.statusCode == 200) {
         setState(() {
           cartList.remove(cartItem);
-          total = calculateTotal();
         });
         loadUserCart();
       } else {
@@ -383,19 +328,6 @@ class _CartPageState extends State<CartPage> {
     return subtotal;
   }
 
-  double calculateTotal() {
-    double newTotal = 0.0;
-
-    // Calculate the total directly from cartList
-    cartList.forEach((item) {
-      newTotal += double.parse(item.productPrice!) * int.parse(item.cartQty!);
-    });
-
-    // Add any fixed charges like shipping (if applicable)
-    newTotal += 10.0; // Assuming a fixed charge of 10.0
-    return newTotal;
-  }
-
   int calculateTotalItems() {
     int totalItems = 0;
 
@@ -404,24 +336,5 @@ class _CartPageState extends State<CartPage> {
     });
 
     return totalItems;
-  }
-
-  void _showDeliveryInfoDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text(
-          "Delivery info",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        content: const Text("Charge for delivery is RM5"),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("OK"),
-          ),
-        ],
-      ),
-    );
   }
 }
